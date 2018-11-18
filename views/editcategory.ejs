@@ -1,0 +1,52 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<% include partials/header.ejs %>
+<body>
+
+<div class="container">
+    <% include partials/nav.ejs %>
+
+    <h1><%= title %></h1>
+    <form method="post" action="/categories/add">
+
+        <div class="form-group">
+            <label>Name:</label>
+            <input class="form-control" name="name" type="text" required/>
+            <input class="btn btn-default" name="submit" type="submit" value="Add" />
+        </div>
+    </form>
+
+    <form method="post" action="/categories/delete">
+
+        <div class="form-group">
+            <label>Category:</label>
+            <select class="form-control" name="category">
+                <% if(categories !==''){ %>
+                <% for(category of categories){ %>
+                    <option value="<%= category.name %>"><%= category.name %></option>
+                <% } %>
+                <% } %>
+            </select>
+            <input class="btn btn-default" name="submit" type="submit" value="Delete" />
+        </div>
+    </form>
+
+
+    <ul class="error">
+        <% if(errors){ %>
+            <% for(error of errors){ %>
+                <li class="alert alert-danger"><%= error.msg %></li>
+            <% } %>
+        <% } %>
+    </ul>
+    <%- messages()%>
+</div>
+
+
+
+</body>
+<% include partials/footer.ejs %>
+</html>

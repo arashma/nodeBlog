@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<% include partials/header.ejs %>
+<body>
+
+<div class="container">
+    <% include partials/nav.ejs %>
+   <div class="post">
+
+       <%if(posts){%>
+
+           <% for(post of posts) {%>
+               <h1><a href="/posts/show/<%= post._id %>"><%= post.title %></a></h1>
+               <p class="meta">Posted in <a href="/categories/show/<%= post.category %>"> <%= post.category %></a>
+                   by <%= post.author %> on
+                   <%= moment(post.date).format("MM-DD-YYYY") %></p>
+                <% if(post.mainimage != 'noimage.jpg'){ %>
+               <img class="postimg" src="/images/upload/<%= post.mainimage %>">
+                   <% } %>
+               <%- truncateText(post.body,200) %> ...
+               <a class="more" href="/posts/show/<%= post._id %>">Read more</a>
+           <% } %>
+       <% } %>
+   </div>
+
+</div>
+
+</body>
+<% include partials/footer.ejs %>
+</html>
